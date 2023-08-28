@@ -7,10 +7,10 @@ Yarn can be used instead of the npm commands show below but I chose to use npm.
 To run it please do the following:
 
 ```
-clone project from github using: 
+//clone project from github using: 
 git clone https://github.com/PlayinatorIX/tech-test.git
 
-cd to the folder and run the following:
+//cd to the folder and run the following:
 
 npm install
 
@@ -19,36 +19,40 @@ npm run build
 npm run dev
 ```
 
-A tl:dr of what is below:
+# tl:dr
 
-```
 My api takes in a json list and gives you its intended output. 
 
-For simplicities sake in windows 10 you can run send_curl.bat which will take the contents of companies.txt and turn it into a request after some cleaning.
+For simplicities sake in windows 10 you can run:
+```send_curl.bat```
+Which will take the contents of companies.txt and turn it into a request after some cleaning.
 
 Alternatively use the following formats (replace the FIRST_DOMAIN etc. placeholders with n domain names):
+```
+//CMD/BASH: 
+curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"FIRST_DOMAIN\", \"SECOND_DOMAIN\", \"Nth_DOMAIN\"]}" http://localhost:8080/zendesk/check-domains (windows 10 cmd and BASH curl request)
 
-CMD/BASH: curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"FIRST_DOMAIN\", \"SECOND_DOMAIN\", \"Nth_DOMAIN\"]}" http://localhost:8080/zendesk/check-domains (windows 10 cmd and BASH curl request)
+//Powershell: 
+Invoke-RestMethod -Uri "http://localhost:8080/zendesk/check-domains" -Method Post -Headers @{"Content-Type" = "application/json"} -Body '{"domains": ["FIRST_DOMAIN", "SECOND_DOMAIN", "Nth_Domain"]}'
 
-Powershell: Invoke-RestMethod -Uri "http://localhost:8080/zendesk/check-domains" -Method Post -Headers @{"Content-Type" = "application/json"} -Body '{"domains": ["FIRST_DOMAIN", "SECOND_DOMAIN", "Nth_Domain"]}'
-
-where domains are a website name e.g. google.com would be "google"
+//where domains are a website name e.g. google.com would be "google"
 
 ```
-```
-#plug and play commands:
 
-CMD/BASH: 
+plugin and play commands:
+```
+//CMD/BASH: 
 curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"myspace\", \"instapage\", \"biz2credit\", \"reverbnation\", \"oceansapart\", \"z\", \"atera\", \"rain\", \"mixtiles\", \"lootcrateoosk\", \"dailywire\", \"crutchfield\", \"lingotek\"]}" http://localhost:8080/zendesk/check-domains
 
-Powershell: 
+//Powershell: 
 Invoke-RestMethod -Uri "http://localhost:8080/zendesk/check-domains" -Method Post -Headers @{"Content-Type" = "application/json"} -Body '{"domains": ["myspace", "instapage", "biz2credit", "reverbnation", "oceansapart", "zoosk", "dailywire", "crutchfield", "lingotek", "atera", "rain", "mixtiles", "lootcrate"]}'
 
 ```
 Enjoy :) 
-(also a copy of the output for the companies.txt file provided has been included at the bottom)
-\n
 
+(also a copy of the output for the companies.txt file provided has been included at the bottom)
+
+\n
 # Notable sections
 
 In zendesk.ts there are a few code blocks, the first two can be ignored when evaluating this task however, they illustrate checking for login and support pages in a singular manner, for one domain at a time purely for examples sake.
@@ -107,6 +111,7 @@ router.post("/check-domains", async (req, res) => {
 });
 ```
 This code snippet defines an API endpoint that receives a list of company domain names and checks each domain to determine if it has a Zendesk login page or support page. The endpoint responds with a JSON array containing information about each domain, including its name, Zendesk login URL (if applicable), and Zendesk support URL (if applicable). The code iterates through the list of domains, making HTTP requests to check for login pages and using DNS queries to identify support pages. The response is formatted for clarity, with indentation and line breaks. This API endpoint can be used to quickly gather Zendesk-related information for a list of company domains.
+
 \n
 # ping(ing) the endpoint
 
