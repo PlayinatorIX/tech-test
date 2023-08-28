@@ -189,16 +189,16 @@ Having checked this with MXToolbox I am confident in the output.
 
 Finally, as I am concious of time and would like to submit this to you before any decision making occurs, I have not implemented various error handling methods that could have been included but in an ideal world I would have included the following:
 
-HTTP Request Errors
-DNS Resolution Errors
-Input Validation
-Error Logging
-Graceful Fallback
-Rate Limiting
-Response Validation
-Exception Handling
-Status Codes
-Data Validation
+- HTTP Request Errors
+- DNS Resolution Errors
+- Input Validation
+- Error Logging
+- Graceful Fallback
+- Rate Limiting
+- Response Validation
+- Exception Handling
+- Status Codes
+- Data Validation
 
 as well as streamlining the api call somewhat.
 
