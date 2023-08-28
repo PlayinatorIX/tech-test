@@ -36,6 +36,7 @@ You can edit companies.txt if you would like and run the code at your leisure.
 __Request Formats__
 
 Remember to replace the FIRST_DOMAIN etc. placeholders with n domain names:
+
 CMD/BASH:
 ```
 curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"FIRST_DOMAIN\", \"SECOND_DOMAIN\", \"Nth_DOMAIN\"]}" http://localhost:8080/zendesk/check-domains (windows 10 cmd and BASH curl request)
