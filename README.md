@@ -52,7 +52,7 @@ __plugin and play commands:__
 
 CMD/BASH: 
 ```
-curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"myspace\", \"instapage\", \"biz2credit\", \"reverbnation\", \"oceansapart\", \"z\", \"atera\", \"rain\", \"mixtiles\", \"lootcrateoosk\", \"dailywire\", \"crutchfield\", \"lingotek\"]}" http://localhost:8080/zendesk/check-domains
+curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"myspace\", \"instapage\", \"biz2credit\", \"reverbnation\", \"oceansapart\", \"zoosk\", \"atera\", \"rain\", \"mixtiles\", \"lootcrate\", \"dailywire\", \"crutchfield\", \"lingotek\"]}" http://localhost:8080/zendesk/check-domains
 ```
 Powershell:
 ```
@@ -158,8 +158,8 @@ and recieved the following output:
     "zendeskSupportUrl": "https://help.instapage.zendesk.com"
   },
   {
-    "domain": "biz2credit",
-    "zendeskLoginUrl": "https://biz2credit.zendesk.com",
+    "domain": "biz2credit.zendesk",
+    "zendeskLoginUrl": null,
     "zendeskSupportUrl": null
   },
   {
@@ -173,29 +173,9 @@ and recieved the following output:
     "zendeskSupportUrl": "https://support.oceansapart.zendesk.com"
   },
   {
-    "domain": "z",
+    "domain": "zoosk",
     "zendeskLoginUrl": null,
-    "zendeskSupportUrl": null
-  },
-  {
-    "domain": "atera",
-    "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://support.atera.zendesk.com"
-  },
-  {
-    "domain": "rain",
-    "zendeskLoginUrl": null,
-    "zendeskSupportUrl": null
-  },
-  {
-    "domain": "mixtiles",
-    "zendeskLoginUrl": "https://mixtiles.zendesk.com",
-    "zendeskSupportUrl": null
-  },
-  {
-    "domain": "lootcrateoosk",
-    "zendeskLoginUrl": null,
-    "zendeskSupportUrl": null
+    "zendeskSupportUrl": "https://help.zoosk.zendesk.com"
   },
   {
     "domain": "dailywire",
@@ -211,6 +191,26 @@ and recieved the following output:
     "domain": "lingotek",
     "zendeskLoginUrl": null,
     "zendeskSupportUrl": "https://support.lingotek.zendesk.com"
+  },
+  {
+    "domain": "atera",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": "https://support.atera.zendesk.com"
+  },
+  {
+    "domain": "support.rain.co",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": null
+  },
+  {
+    "domain": "mixtiles",
+    "zendeskLoginUrl": "https://mixtiles.zendesk.com",
+    "zendeskSupportUrl": null
+  },
+  {
+    "domain": "lootcrate",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": "https://help.lootcrate.zendesk.com"
   }
 ]
 ```
