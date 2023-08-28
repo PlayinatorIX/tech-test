@@ -71,7 +71,6 @@ In zendesk.ts there are a few code blocks, the first two can be ignored when eva
 
 The main task can be found after these two code blocks, the code for which is also included here:
 ```
-//Main task - check domain based on name and return login/support url where applicable ((CMD: curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"FIRST_DOMAIN\", \"SECOND_DOMAIN\", \"Nth_DOMAIN\"]}" http://localhost:8080/zendesk/check-domains ))
 router.post("/check-domains", async (req, res) => {
   const companyDomains: string[] = req.body.domains;
   // console.log("Received request with domains:", companyDomains);
@@ -107,8 +106,9 @@ router.post("/check-domains", async (req, res) => {
       })
     );
 
-    if (supportResults.includes(true)) {
-      zendeskSupportUrl = `https://${supportResults.find(Boolean)}.${domain}.zendesk.com`;
+    const trueIndex = supportResults.findIndex(result => result === true);
+    if (trueIndex !== -1) {
+      zendeskSupportUrl = `https://${supportCnames[trueIndex]}.${domain}.zendesk.com`;
     }
 
     results.push({
