@@ -54,13 +54,13 @@ const router = express.Router();
 //Main task - check domain based on name and return login/support url where applicable ((CMD: curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"FIRST_DOMAIN\", \"SECOND_DOMAIN\", \"Nth_DOMAIN\"]}" http://localhost:8080/zendesk/check-domains ))
 router.post("/check-domains", async (req, res) => {
   const companyDomains: string[] = req.body.domains;
-  // console.log("Received request with domains:", companyDomains);
   const results = [];
+  
   for (const domain of companyDomains) {
-    // console.log("Processing domain:", domain);
     const loginUrl = `https://${domain}.zendesk.com`;
     let zendeskLoginUrl = null;
-    let zendeskSupportUrl = null;
+    let zendeskSupportCname = null; // Store Canonical Name instead of boolean
+    
     try {
       const loginResponse = await axios.get(loginUrl);
       if (loginResponse.status === 200) {
@@ -69,36 +69,38 @@ router.post("/check-domains", async (req, res) => {
     } catch (error) {
       console.error("Error checking login page for", domain);
     }
+    
     const supportCnames = ["support", "help"];
     const supportResults = await Promise.all(
       supportCnames.map((cname) => {
         return new Promise((resolve) => {
           dns.resolveCname(`${cname}.${domain}.com`, (err, addresses) => {
             if (!err) {
-              const hasZendeskCname = addresses.some((address) =>
+              const zendeskCname = addresses.find(address =>
                 address.endsWith(".zendesk.com")
               );
-              resolve(hasZendeskCname);
+              resolve(zendeskCname || null); // Resolve with Canonical Name or null
             } else {
-              resolve(false);
+              resolve(null);
             }
           });
         });
       })
     );
 
-    const trueIndex = supportResults.findIndex(result => result === true);
-    if (trueIndex !== -1) {
-      zendeskSupportUrl = `https://${supportCnames[trueIndex]}.${domain}.zendesk.com`;
+    const validSupportResults = supportResults.filter(cname => cname !== null);
+
+    if (validSupportResults.length > 0) {
+      zendeskSupportCname = validSupportResults[0]; // Use the first valid Canonical Name
     }
 
     results.push({
       domain,
       zendeskLoginUrl,
-      zendeskSupportUrl,
+      zendeskSupportCname,
     });
   }
-  // console.log("Sending response:", results);
+
   const formattedResponse = JSON.stringify(results, null, 2);
   res.status(200).send(formattedResponse);
 });

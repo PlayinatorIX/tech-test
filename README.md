@@ -73,13 +73,13 @@ The main task can be found after these two code blocks, the code for which is al
 ```
 router.post("/check-domains", async (req, res) => {
   const companyDomains: string[] = req.body.domains;
-  // console.log("Received request with domains:", companyDomains);
   const results = [];
+  
   for (const domain of companyDomains) {
-    // console.log("Processing domain:", domain);
     const loginUrl = `https://${domain}.zendesk.com`;
     let zendeskLoginUrl = null;
-    let zendeskSupportUrl = null;
+    let zendeskSupportCname = null; // Store Canonical Name instead of boolean
+    
     try {
       const loginResponse = await axios.get(loginUrl);
       if (loginResponse.status === 200) {
@@ -88,41 +88,43 @@ router.post("/check-domains", async (req, res) => {
     } catch (error) {
       console.error("Error checking login page for", domain);
     }
+    
     const supportCnames = ["support", "help"];
     const supportResults = await Promise.all(
       supportCnames.map((cname) => {
         return new Promise((resolve) => {
           dns.resolveCname(`${cname}.${domain}.com`, (err, addresses) => {
             if (!err) {
-              const hasZendeskCname = addresses.some((address) =>
+              const zendeskCname = addresses.find(address =>
                 address.endsWith(".zendesk.com")
               );
-              resolve(hasZendeskCname);
+              resolve(zendeskCname || null); // Resolve with Canonical Name or null
             } else {
-              resolve(false);
+              resolve(null);
             }
           });
         });
       })
     );
 
-    const trueIndex = supportResults.findIndex(result => result === true);
-    if (trueIndex !== -1) {
-      zendeskSupportUrl = `https://${supportCnames[trueIndex]}.${domain}.zendesk.com`;
+    const validSupportResults = supportResults.filter(cname => cname !== null);
+
+    if (validSupportResults.length > 0) {
+      zendeskSupportCname = validSupportResults[0]; // Use the first valid Canonical Name
     }
 
     results.push({
       domain,
       zendeskLoginUrl,
-      zendeskSupportUrl,
+      zendeskSupportCname,
     });
   }
-  // console.log("Sending response:", results);
+
   const formattedResponse = JSON.stringify(results, null, 2);
   res.status(200).send(formattedResponse);
 });
 ```
-This code snippet defines an API endpoint that receives a list of company domain names and checks each domain to determine if it has a Zendesk login page or support page. The endpoint responds with a JSON array containing information about each domain, including its name, Zendesk login URL (if applicable), and Zendesk support URL (if applicable). The code iterates through the list of domains, making HTTP requests to check for login pages and using DNS queries to identify support pages. The response is formatted for clarity, with indentation and line breaks. This API endpoint can be used to quickly gather Zendesk-related information for a list of company domains.
+This code snippet defines an API endpoint that receives a list of company domain names and checks each domain to determine if it has a Zendesk login page or support page. The endpoint responds with a JSON array containing information about each domain, including its name, Zendesk login URL (if applicable), and Zendesk support URL (if applicable). The code iterates through the list of domains, making HTTP requests to check for login pages and using DNS queries to identify support pages and retireve their cnames. The response is formatted for clarity, with indentation and line breaks. This API endpoint can be used to quickly gather Zendesk-related information for a list of company domains.
 
 <br><br>
 
@@ -151,67 +153,67 @@ and recieved the following output:
   {
     "domain": "myspace",
     "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://help.myspace.zendesk.com"
+    "zendeskSupportCname": "myspace.ssl.zendesk.com"
   },
   {
     "domain": "instapage",
     "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://help.instapage.zendesk.com"
+    "zendeskSupportCname": "insta.ssl.zendesk.com"
   },
   {
-    "domain": "biz2credit.zendesk",
-    "zendeskLoginUrl": null,
-    "zendeskSupportUrl": null
+    "domain": "biz2credit",
+    "zendeskLoginUrl": "https://biz2credit.zendesk.com",
+    "zendeskSupportCname": null
   },
   {
     "domain": "reverbnation",
     "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://help.reverbnation.zendesk.com"
+    "zendeskSupportCname": "reverbnation.zendesk.com"
   },
   {
     "domain": "oceansapart",
     "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://support.oceansapart.zendesk.com"
+    "zendeskSupportCname": "oceansapartsupport.zendesk.com"
   },
   {
     "domain": "zoosk",
     "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://help.zoosk.zendesk.com"
-  },
-  {
-    "domain": "dailywire",
-    "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://support.dailywire.zendesk.com"
-  },
-  {
-    "domain": "crutchfield",
-    "zendeskLoginUrl": "https://crutchfield.zendesk.com",
-    "zendeskSupportUrl": null
-  },
-  {
-    "domain": "lingotek",
-    "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://support.lingotek.zendesk.com"
+    "zendeskSupportCname": "zoosk.zendesk.com"
   },
   {
     "domain": "atera",
     "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://support.atera.zendesk.com"
+    "zendeskSupportCname": "ateranetworks.ssl.zendesk.com"
   },
   {
-    "domain": "support.rain.co",
+    "domain": "rain",
     "zendeskLoginUrl": null,
-    "zendeskSupportUrl": null
+    "zendeskSupportCname": null
   },
   {
     "domain": "mixtiles",
     "zendeskLoginUrl": "https://mixtiles.zendesk.com",
-    "zendeskSupportUrl": null
+    "zendeskSupportCname": null
   },
   {
     "domain": "lootcrate",
     "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://help.lootcrate.zendesk.com"
+    "zendeskSupportCname": "lootcrate.zendesk.com"
+  },
+  {
+    "domain": "dailywire",
+    "zendeskLoginUrl": null,
+    "zendeskSupportCname": "dailywire.zendesk.com"
+  },
+  {
+    "domain": "crutchfield",
+    "zendeskLoginUrl": "https://crutchfield.zendesk.com",
+    "zendeskSupportCname": null
+  },
+  {
+    "domain": "lingotek",
+    "zendeskLoginUrl": null,
+    "zendeskSupportCname": "lingotekhelp.zendesk.com"
   }
 ]
 ```
