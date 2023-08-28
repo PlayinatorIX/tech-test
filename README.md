@@ -40,7 +40,7 @@ Invoke-RestMethod -Uri "http://localhost:8080/zendesk/check-domains" -Method Pos
 ```
 where domains are a website name e.g. google.com would be "google"
 
-
+/n
 __plugin and play commands:__
 
 CMD/BASH: 
