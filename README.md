@@ -40,7 +40,8 @@ Invoke-RestMethod -Uri "http://localhost:8080/zendesk/check-domains" -Method Pos
 ```
 where domains are a website name e.g. google.com would be "google"
 
-\n
+
+
 __plugin and play commands:__
 
 CMD/BASH: 
@@ -55,7 +56,8 @@ Enjoy :)
 
 (also a copy of the output for the companies.txt file provided has been included at the bottom)
 
-\n
+
+
 # Notable sections
 
 In zendesk.ts there are a few code blocks, the first two can be ignored when evaluating this task however, they illustrate checking for login and support pages in a singular manner, for one domain at a time purely for examples sake.
@@ -115,7 +117,8 @@ router.post("/check-domains", async (req, res) => {
 ```
 This code snippet defines an API endpoint that receives a list of company domain names and checks each domain to determine if it has a Zendesk login page or support page. The endpoint responds with a JSON array containing information about each domain, including its name, Zendesk login URL (if applicable), and Zendesk support URL (if applicable). The code iterates through the list of domains, making HTTP requests to check for login pages and using DNS queries to identify support pages. The response is formatted for clarity, with indentation and line breaks. This API endpoint can be used to quickly gather Zendesk-related information for a list of company domains.
 
-\n
+
+
 # ping(ing) the endpoint
 
 I ping this endpoint in cmd using the format:
