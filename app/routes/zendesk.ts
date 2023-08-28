@@ -51,8 +51,8 @@ router.get("/check-support/:name", async (req, res) => {
 });
 
 
-
-router.post("/check-domains", async (req, res) => { //curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"FIRST_DOMAIN\", \"SECOND_DOMAIN\", \"Nth_DOMAIN\"]}" http://localhost:8080/zendesk/check-domains
+//Main task - check domain based on name and return login/support url where applicable ((CMD: curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"FIRST_DOMAIN\", \"SECOND_DOMAIN\", \"Nth_DOMAIN\"]}" http://localhost:8080/zendesk/check-domains ))
+router.post("/check-domains", async (req, res) => {
   const companyDomains: string[] = req.body.domains;
   // console.log("Received request with domains:", companyDomains);
   const results = [];
