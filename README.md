@@ -27,19 +27,21 @@ For simplicities sake within the project folder, in windows 10, you can run:
 ```send_curl.bat```
 Which will take the contents of companies.txt and turn it into a request after some cleaning.
 
-Alternatively use the following formats (replace the FIRST_DOMAIN etc. placeholders with n domain names):
+__Request Formats__
+
+Remember to replace the FIRST_DOMAIN etc. placeholders with n domain names:
+CMD/BASH:
 ```
-//CMD/BASH: 
 curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"FIRST_DOMAIN\", \"SECOND_DOMAIN\", \"Nth_DOMAIN\"]}" http://localhost:8080/zendesk/check-domains (windows 10 cmd and BASH curl request)
-
-//Powershell: 
-Invoke-RestMethod -Uri "http://localhost:8080/zendesk/check-domains" -Method Post -Headers @{"Content-Type" = "application/json"} -Body '{"domains": ["FIRST_DOMAIN", "SECOND_DOMAIN", "Nth_Domain"]}'
-
-//where domains are a website name e.g. google.com would be "google"
-
 ```
+Powershell:
+``` 
+Invoke-RestMethod -Uri "http://localhost:8080/zendesk/check-domains" -Method Post -Headers @{"Content-Type" = "application/json"} -Body '{"domains": ["FIRST_DOMAIN", "SECOND_DOMAIN", "Nth_Domain"]}'
+```
+where domains are a website name e.g. google.com would be "google"
 
 __plugin and play commands:__
+
 CMD/BASH: 
 ```
 curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"myspace\", \"instapage\", \"biz2credit\", \"reverbnation\", \"oceansapart\", \"z\", \"atera\", \"rain\", \"mixtiles\", \"lootcrateoosk\", \"dailywire\", \"crutchfield\", \"lingotek\"]}" http://localhost:8080/zendesk/check-domains
