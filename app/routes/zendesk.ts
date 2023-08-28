@@ -59,7 +59,7 @@ router.post("/check-domains", async (req, res) => {
   for (const domain of companyDomains) {
     const loginUrl = `https://${domain}.zendesk.com`;
     let zendeskLoginUrl = null;
-    let zendeskSupportCname = null; // Store Canonical Name instead of boolean
+    let zendeskSupportCname = null; // Store Canonical Name 
     
     try {
       const loginResponse = await axios.get(loginUrl);
