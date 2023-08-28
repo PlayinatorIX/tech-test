@@ -27,6 +27,8 @@ For simplicities sake within the project folder, in windows 10, you can run:
 ```send_curl.bat```
 Which will take the contents of companies.txt and turn it into a request after some cleaning.
 
+<br><br>
+
 __Request Formats__
 
 Remember to replace the FIRST_DOMAIN etc. placeholders with n domain names:
@@ -117,7 +119,7 @@ router.post("/check-domains", async (req, res) => {
 ```
 This code snippet defines an API endpoint that receives a list of company domain names and checks each domain to determine if it has a Zendesk login page or support page. The endpoint responds with a JSON array containing information about each domain, including its name, Zendesk login URL (if applicable), and Zendesk support URL (if applicable). The code iterates through the list of domains, making HTTP requests to check for login pages and using DNS queries to identify support pages. The response is formatted for clarity, with indentation and line breaks. This API endpoint can be used to quickly gather Zendesk-related information for a list of company domains.
 
-
+<br><br>
 
 # ping(ing) the endpoint
 
@@ -211,6 +213,9 @@ and recieved the following output:
 
 Having checked this with MXToolbox I am confident in the output.
 
+<br><br>
+
+# Closing Notes
 Finally, as I am concious of time and would like to submit this to you before any decision making occurs, I have not implemented various error handling methods that could have been included but in an ideal world I would have included the following:
 
 - HTTP Request Errors
