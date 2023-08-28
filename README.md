@@ -21,11 +21,15 @@ npm run dev
 
 # tl:dr
 
+__How to input a list of companies__
+
 My api takes in a json list and gives you its intended output. 
 
 For simplicities sake within the project folder, in windows 10, you can run:
 ```send_curl.bat```
 Which will take the contents of companies.txt and turn it into a request after some cleaning.
+
+You can edit companies.txt if you would like and run the code at your leisure.
 
 <br><br>
 
