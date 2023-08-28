@@ -57,7 +57,7 @@ router.post("/check-domains", async (req, res) => {
   // console.log("Received request with domains:", companyDomains);
   const results = [];
   for (const domain of companyDomains) {
-    console.log("Processing domain:", domain);
+    // console.log("Processing domain:", domain);
     const loginUrl = `https://${domain}.zendesk.com`;
     let zendeskLoginUrl = null;
     let zendeskSupportUrl = null;
