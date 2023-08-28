@@ -150,7 +150,7 @@ and recieved the following output:
   {
     "domain": "myspace",
     "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://true.myspace.zendesk.com"  
+    "zendeskSupportUrl": "https://true.myspace.zendesk.com"
   },
   {
     "domain": "instapage",
@@ -173,24 +173,9 @@ and recieved the following output:
     "zendeskSupportUrl": "https://true.oceansapart.zendesk.com"
   },
   {
-    "domain": "zoosk",
+    "domain": "z",
     "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://true.zoosk.zendesk.com"
-  },
-  {
-    "domain": "dailywire",
-    "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://true.dailywire.zendesk.com"
-  },
-  {
-    "domain": "crutchfield",
-    "zendeskLoginUrl": "https://crutchfield.zendesk.com",
     "zendeskSupportUrl": null
-  },
-  {
-    "domain": "lingotek",
-    "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://true.lingotek.zendesk.com"
   },
   {
     "domain": "atera",
@@ -208,9 +193,92 @@ and recieved the following output:
     "zendeskSupportUrl": null
   },
   {
-    "domain": "lootcrate",
+    "domain": "lootcrateoosk",
     "zendeskLoginUrl": null,
-    "zendeskSupportUrl": "https://true.lootcrate.zendesk.com"
+    "zendeskSupportUrl": null
+  },
+  {
+    "domain": "dailywire",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": "https://true.dailywire.zendesk.com"
+  },
+  {
+    "domain": "crutchfield",
+    "zendeskLoginUrl": "https://crutchfield.zendesk.com",
+    "zendeskSupportUrl": null
+  },
+  {
+    "domain": "lingotek",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": "https://true.lingotek.zendesk.com"
+  }
+]
+C:\Users\IX\Desktop\tech-test>curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"myspace\", \"instapage\", \"biz2credit\", \"reverbnation\", \"oceansapart\", \"z\", \"atera\", \"rain\", \"mixtiles\", \"lootcrateoosk\", \"dailywire\", \"crutchfield\", \"lingotek\"]}" http://localhost:8080/zendesk/check-domains
+[
+  {
+    "domain": "myspace",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": "https://help.myspace.zendesk.com"
+  },
+  {
+    "domain": "instapage",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": "https://help.instapage.zendesk.com"
+  },
+  {
+    "domain": "biz2credit",
+    "zendeskLoginUrl": "https://biz2credit.zendesk.com",
+    "zendeskSupportUrl": null
+  },
+  {
+    "domain": "reverbnation",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": "https://help.reverbnation.zendesk.com"
+  },
+  {
+    "domain": "oceansapart",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": "https://support.oceansapart.zendesk.com"
+  },
+  {
+    "domain": "z",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": null
+  },
+  {
+    "domain": "atera",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": "https://support.atera.zendesk.com"
+  },
+  {
+    "domain": "rain",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": null
+  },
+  {
+    "domain": "mixtiles",
+    "zendeskLoginUrl": "https://mixtiles.zendesk.com",
+    "zendeskSupportUrl": null
+  },
+  {
+    "domain": "lootcrateoosk",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": null
+  },
+  {
+    "domain": "dailywire",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": "https://support.dailywire.zendesk.com"
+  },
+  {
+    "domain": "crutchfield",
+    "zendeskLoginUrl": "https://crutchfield.zendesk.com",
+    "zendeskSupportUrl": null
+  },
+  {
+    "domain": "lingotek",
+    "zendeskLoginUrl": null,
+    "zendeskSupportUrl": "https://support.lingotek.zendesk.com"
   }
 ]
 ```
