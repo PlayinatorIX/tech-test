@@ -23,7 +23,7 @@ npm run dev
 
 My api takes in a json list and gives you its intended output. 
 
-For simplicities sake in windows 10 you can run:
+For simplicities sake within the project folder, in windows 10, you can run:
 ```send_curl.bat```
 Which will take the contents of companies.txt and turn it into a request after some cleaning.
 
@@ -39,14 +39,14 @@ Invoke-RestMethod -Uri "http://localhost:8080/zendesk/check-domains" -Method Pos
 
 ```
 
-plugin and play commands:
+__plugin and play commands:__
+CMD/BASH: 
 ```
-//CMD/BASH: 
 curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"myspace\", \"instapage\", \"biz2credit\", \"reverbnation\", \"oceansapart\", \"z\", \"atera\", \"rain\", \"mixtiles\", \"lootcrateoosk\", \"dailywire\", \"crutchfield\", \"lingotek\"]}" http://localhost:8080/zendesk/check-domains
-
-//Powershell: 
+```
+Powershell:
+```
 Invoke-RestMethod -Uri "http://localhost:8080/zendesk/check-domains" -Method Post -Headers @{"Content-Type" = "application/json"} -Body '{"domains": ["myspace", "instapage", "biz2credit", "reverbnation", "oceansapart", "zoosk", "dailywire", "crutchfield", "lingotek", "atera", "rain", "mixtiles", "lootcrate"]}'
-
 ```
 Enjoy :) 
 
