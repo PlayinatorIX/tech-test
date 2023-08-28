@@ -16,9 +16,29 @@ npm run build
 npm run dev
 ```
 
+A tl:dr of what is below:
+
+```
+My api takes in a json list and gives you its intended output. 
+
+For simplicities sake in windows 10 you can run send_curl.bat which will take the contents of companies.txt and turn it into a request after some cleaning.
+
+Alternatively use
+
+CMD/BASH: curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"FIRST_DOMAIN\", \"SECOND_DOMAIN\", \"Nth_DOMAIN\"]}" http://localhost:8080/zendesk/check-domains (windows 10 cmd and BASH curl request)
+
+Powershell: Invoke-RestMethod -Uri "http://localhost:8080/zendesk/check-domains" -Method Post -Headers @{"Content-Type" = "application/json"} -Body '{"domains": ["FIRST_DOMAIN", "SECOND_DOMAIN", "Nth_Domain"]}'
+
+where domains are a website name e.g. google.com would be "google"
+
+```
+Enjoy :) 
+(also a copy of the output for the companies.txt file provided has been included at the bottom)
+
+
 # Notable sections
 
-In zendesk.js there are a few code blocks, the first two can be ignored when evaluating this task however, they illustrate checking for login and support pages in a singular manner, for one domain at a time purely for examples sake.
+In zendesk.ts there are a few code blocks, the first two can be ignored when evaluating this task however, they illustrate checking for login and support pages in a singular manner, for one domain at a time purely for examples sake.
 
 The main task can be found after these two code blocks, the code for which is also included here:
 ```
@@ -73,18 +93,26 @@ router.post("/check-domains", async (req, res) => {
   res.status(200).send(formattedResponse);
 });
 ```
+This code snippet defines an API endpoint that receives a list of company domain names and checks each domain to determine if it has a Zendesk login page or support page. The endpoint responds with a JSON array containing information about each domain, including its name, Zendesk login URL (if applicable), and Zendesk support URL (if applicable). The code iterates through the list of domains, making HTTP requests to check for login pages and using DNS queries to identify support pages. The response is formatted for clarity, with indentation and line breaks. This API endpoint can be used to quickly gather Zendesk-related information for a list of company domains.
+
+# ping(ing) the endpoint
+
 I ping this endpoint in cmd using the format:
+
 curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"FIRST_DOMAIN\", \"SECOND_DOMAIN\", \"Nth_DOMAIN\"]}" http://localhost:8080/zendesk/check-domains
 
 Where "{\"domains\": [\"FIRST_DOMAIN\", \"SECOND_DOMAIN\", \"Nth_DOMAIN\"]}" are a json list of company domains. My curl commands were done in windows 10 cmd and required the \ notiation before any speechmarks (\") to stop the string from ending prematurely
 
 For my final test, utiling the company names provided I used the following curl command passing in a json list of the company names:
+
+__There is a bat file called send_curl.bat that takes in the companies.txt file and turns it into a curl command, automating this. This can be run by using send_curl.bat (windows 10 cmd line).__
+
+
 ```
 curl -X POST -H "Content-Type: application/json" -d "{\"domains\": [\"myspace\", \"instapage\", \"biz2credit\", \"reverbnation\", \"oceansapart\", \"zoosk\", \"dailywire\", \"crutchfield\", \"lingotek\", \"atera\", \"rain\", \"mixtiles\", \"lootcrate\"]}" http://localhost:8080/zendesk/check-domains
 
 ```
 
-__There is a bat file called send_curl.bat that takes in the companies.txt file and turns it into a curl command, automating this. This can be run by using send_curl.bat (windows 10 cmd line).__
 
 and recieved the following output:
 ```
@@ -156,3 +184,22 @@ and recieved the following output:
   }
 ]
 ```
+
+Having checked this with MXToolbox I am confident in the output.
+
+Finally, as I am concious of time and would like to submit this to you before any decision making occurs, I have not implemented various error handling methods that could have been included but in an ideal world I would have included the following:
+
+HTTP Request Errors
+DNS Resolution Errors
+Input Validation
+Error Logging
+Graceful Fallback
+Rate Limiting
+Response Validation
+Exception Handling
+Status Codes
+Data Validation
+
+as well as streamlining the api call somewhat.
+
+Thank you.
