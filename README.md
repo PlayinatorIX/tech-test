@@ -47,7 +47,7 @@ Invoke-RestMethod -Uri "http://localhost:8080/zendesk/check-domains" -Method Pos
 ```
 Enjoy :) 
 (also a copy of the output for the companies.txt file provided has been included at the bottom)
-
+\n
 
 # Notable sections
 
@@ -107,7 +107,7 @@ router.post("/check-domains", async (req, res) => {
 });
 ```
 This code snippet defines an API endpoint that receives a list of company domain names and checks each domain to determine if it has a Zendesk login page or support page. The endpoint responds with a JSON array containing information about each domain, including its name, Zendesk login URL (if applicable), and Zendesk support URL (if applicable). The code iterates through the list of domains, making HTTP requests to check for login pages and using DNS queries to identify support pages. The response is formatted for clarity, with indentation and line breaks. This API endpoint can be used to quickly gather Zendesk-related information for a list of company domains.
-
+\n
 # ping(ing) the endpoint
 
 I ping this endpoint in cmd using the format:
