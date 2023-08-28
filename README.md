@@ -7,7 +7,7 @@ Yarn can be used instead of the npm commands show below but I chose to use npm.
 To run it please do the following:
 
 ```
-clone project from github
+clone project from github using: git clone https://github.com/PlayinatorIX/tech-test.git
 
 npm install
 
